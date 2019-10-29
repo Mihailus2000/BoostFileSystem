@@ -102,6 +102,3 @@ void BrokerResolver::Output() {
     }
 }
 
-BrokerResolver::Brokers &BrokerResolver::GetBrokerInfo(std::string brokerName) {
-    return
-}
