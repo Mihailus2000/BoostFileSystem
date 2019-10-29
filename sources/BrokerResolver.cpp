@@ -7,7 +7,6 @@
 #include <boost/lexical_cast.hpp>
 BrokerResolver::BrokerResolver(fs::path path) : _inputPath(path){
     FileSystemResearch(_inputPath);
-    Output();
 }
 
 void BrokerResolver::FileSystemResearch(fs::path path) {
@@ -78,7 +77,8 @@ std::optional<BrokerResolver::AccountInfo> BrokerResolver::CheckFileName(fs::pat
                     break;
             }
         }
-        std::cout << info.brockerName << " " << checkingPath.filename().string() << "\n";
+        _foundedFiles.push_back(std::make_pair(info.brockerName,checkingPath.filename().string() ));
+//        std::cout << info.brockerName << " " << checkingPath.filename().string() << "\n";
         return std::move(info);
     }
     else{
@@ -87,6 +87,10 @@ std::optional<BrokerResolver::AccountInfo> BrokerResolver::CheckFileName(fs::pat
 }
 
 void BrokerResolver::Output() {
+    for(auto it = _foundedFiles.begin(); it < _foundedFiles.end(); it++){
+        std::cout << it->first << " " << it->second << std::endl;
+    }
+
     std::cout << "\n\n\t-------------------------FIND-------------------------:\n";
     for(auto broker : storage){
         for(auto account : broker.second){
@@ -96,4 +100,8 @@ void BrokerResolver::Output() {
                       << "lastdate:" << account.second.date << std::endl;
         }
     }
+}
+
+BrokerResolver::Brokers &BrokerResolver::GetBrokerInfo(std::string brokerName) {
+    return
 }

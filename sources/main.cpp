@@ -24,4 +24,5 @@ int main(int argc, char *argv[]){
 //        }
 //    }
     BrokerResolver Test(path_to_ftp);
+    Test.Output();
 }
